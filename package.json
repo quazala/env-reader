@@ -1,6 +1,6 @@
 {
   "name": "@quazala/env-reader",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "Quazala env-reader library",
   "type": "module",
   "files": [
