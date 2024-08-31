@@ -1,18 +1,15 @@
 function expandVariables(value, context) {
   return value.replace(/\${(\w+)}/g, (_, key) => {
-    return context[key] || process.env[key] || "";
+    return context[key] || process.env[key] || '';
   });
 }
 
 function trimAndRemoveQuotes(value) {
-  value = value.replace(/^\s+|\s+$/g, "");
-  if (
-    (value.startsWith('"') && value.endsWith('"')) ||
-    (value.startsWith("'") && value.endsWith("'"))
-  ) {
-    value = value.slice(1, -1);
+  let replaced = value.replace(/^\s+|\s+$/g, '');
+  if ((replaced.startsWith('"') && replaced.endsWith('"')) || (replaced.startsWith("'") && replaced.endsWith("'"))) {
+    replaced = replaced.slice(1, -1);
   }
-  return value;
+  return replaced;
 }
 /**
  * Parses an input string containing environment variable definitions.
@@ -30,18 +27,18 @@ function trimAndRemoveQuotes(value) {
  * // Returns: { KEY1: "value1", KEY2: "value2 with spaces", KEY3: "value1/suffix" }
  */
 export function reader(source) {
-  const lines = source.split("\n");
+  const lines = source.split('\n');
   const result = {};
 
   for (const line of lines) {
     const trimmedLine = line.trim();
 
-    if (trimmedLine === "" || trimmedLine.startsWith("#")) {
+    if (trimmedLine === '' || trimmedLine.startsWith('#')) {
       continue;
     }
 
-    const [key, ...valueParts] = trimmedLine.split("=");
-    let value = valueParts.join("=");
+    const [key, ...valueParts] = trimmedLine.split('=');
+    let value = valueParts.join('=');
 
     if (key && value !== undefined) {
       value = trimAndRemoveQuotes(value);
